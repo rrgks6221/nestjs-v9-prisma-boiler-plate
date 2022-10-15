@@ -1,27 +1,19 @@
-import { ROUTE_ARGS_METADATA } from '@nestjs/common/constants';
 import { SetDefaultPageSize } from '@src/decorators/set-default-page-size.decorator';
 import { faker } from '@faker-js/faker';
-import { mockCtx, mockRequest } from '../../test/mock/mock-ctx';
+import {
+  getParamDecoratorFactory,
+  mock,
+  mockRequest,
+} from '../../test/mock/mock';
 
 describe('SetDefaultPageSize decorator', () => {
   let factory;
   let ctx;
   let request;
 
-  function getParamDecoratorFactory(decorator) {
-    class Test {
-      public test(@decorator() value) {
-        return;
-      }
-    }
-
-    const args = Reflect.getMetadata(ROUTE_ARGS_METADATA, Test, 'test');
-    return args[Object.keys(args)[0]].factory;
-  }
-
   beforeEach(() => {
     factory = getParamDecoratorFactory(SetDefaultPageSize);
-    ctx = mockCtx;
+    ctx = mock;
     request = mockRequest;
   });
 
